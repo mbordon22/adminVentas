@@ -10,10 +10,11 @@ $idTipoProducto = isset($_REQUEST["id_tp"]) ? (int) $_REQUEST["id_tp"] : "";
 $nombreProducto = isset($_REQUEST["nombreProducto"]) ? $_REQUEST["nombreProducto"] : "";
 $tipoProducto = isset($_REQUEST["tipo_producto"]) ? (int) $_REQUEST["tipo_producto"] : "";
 $cantidad = isset($_REQUEST["cantidad"]) ? (int) $_REQUEST["cantidad"] : "";
-$precio = isset($_REQUEST["precio"]) ? str_replace(".", ",", $_REQUEST["precio"]) : "";
+$precio = isset($_REQUEST["precio"]) ? (int) $_REQUEST["precio"] : "";
 $descripcion = isset($_REQUEST["descripcion"]) ? $_REQUEST["descripcion"] : "";
+$idProducto = isset($_REQUEST["id_producto"]) ? (int) $_REQUEST["id_producto"] : "";
 
-
+ 
 //Aciones a ejecutar
 if($accion == "crearTP"){
     include("../funciones/conexion.php");
@@ -128,6 +129,66 @@ elseif($accion == "crearP"){
 
     echo json_encode($respuesta);
 
+}
+elseif($accion == "actualizarP"){
+    include("../funciones/conexion.php");
+
+    try{
+
+        $stmt = $conn->prepare(" UPDATE `productos` SET `nombre` = ?, `fk_idtipoprod` = ?, `cantidad` = ?, `descripcion` = ?, `precio` = ? WHERE `productos`.`idproducto` = ? ");
+        $stmt->bind_param("siisii", $nombreProducto, $tipoProducto, $cantidad, $descripcion, $precio, $idProducto);
+        $stmt->execute();
+
+
+        if($stmt->affected_rows > 0){
+            $respuesta = array(
+                "respuesta" => "correcto"
+            );
+        }
+
+        $stmt->close();
+        $conn->close();
+
+    }catch(Exception $e){
+        $respuesta = array(
+            "error" => $e->getMessage()
+        );
+    }
+
+    
+    echo json_encode($respuesta);
+}
+elseif($accion == "borrarP"){
+    include("../funciones/conexion.php"); //Conectamos a la bd.
+
+    try{
+        //Realizamos la accion en la base de datos
+        $stmt = $conn->prepare(" DELETE FROM `productos` WHERE `productos`.`idproducto` = ? ");
+        $stmt->bind_param("i", $idProducto);
+        
+        //ejecutamos la accion
+        $stmt->execute();
+
+        //En caso que se ejecute correctamente guardamos una respuesta
+        if($stmt->affected_rows > 0){
+            $respuesta = array(
+                "respuesta" => "correcto"
+            );
+        }
+
+        //Cerramos la conexion.
+        $stmt->close();
+        $conn->close();
+
+    }catch(Exception $e){
+        //En caso de error mostramos el mensaje
+        $respuesta = array(
+            "error" => $e->getMessage()
+        );
+    }
+
+    //Devolvemos una respuesta a js
+    echo json_encode($respuesta);
 }
 
 ?>

@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function(){
                         console.log(respuesta);
                         if(respuesta.respuesta === "correcto"){
                             
-                            limpiarFormulario(e);
                             window.location.href = "listado-clientes.php";
                         }
 

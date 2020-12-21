@@ -19,7 +19,7 @@ $productos = obtenerProductos();
     <div id="content">
 
       <!-- Topbar -->
-      <?php include("includes/templates/nav.php"); ?>
+      <?php include("includes/templates/nav.php"); ?> 
       <!-- Begin Page Content -->
       <div class="container-fluid">
 
@@ -33,7 +33,7 @@ $productos = obtenerProductos();
         </div>
         <div class="row">
           <div class="col-12 py-2">
-            <table class="table table-hover border">
+            <table class="table tablaP table-hover border">
               <thead>
                 <tr>
                   <th>Nombre</th>

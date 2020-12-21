@@ -7,10 +7,8 @@ $tiposProductos = obtenerTiposProductos();
 $id = isset($_GET["id"]) ? (int) $_GET["id"]: "";
 
 if($id > 0){
-  $producto = obtenerProducto($id)->fetch_assoc();
+  $producto = obtenerProducto($id)->fetch_assoc(); 
 }
-
-var_dump($producto);
 
 ?>
 
@@ -33,12 +31,12 @@ var_dump($producto);
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-1 text-gray-800">Nuevo Producto</h1>
+        <h1 class="h3 mb-1 text-gray-800"><?php echo isset($_GET['id']) ? 'Editar Producto' :'Nuevo Producto';?></h1>
 
         <div class="row">
           <div class="col-12 col-sm-10 py-4">
             <a href="listado-productos.php" class="btn btn-primary mr-1">Listado</a>
-            <a href="nuevo-productos.php" class="btn btn-primary mx-1" id="btnLimpiar">Nuevo</a>
+            <a href="nuevo-producto.php" class="btn btn-primary mx-1" id="btnLimpiar">Nuevo</a>
             <input type="hidden" id="id-producto" value="<?php echo isset($producto['idproducto']) ? $producto['idproducto'] : ''; ?>">
             <button type="submit" class="btn btn-success mx-1" name="<?php echo isset($_GET['id']) ? 'btnActualizarP' :'btnGuardarP';?>" id="<?php echo isset($_GET['id']) ? 'btnActualizarP' :'btnGuardarP';?>">Guardar</button>
           </div>
@@ -50,16 +48,16 @@ var_dump($producto);
         <div class="row">
           <div class="form-group col-6">
             <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control" name="txtNombre" id="txtNombre">
+            <input type="text" class="form-control" name="txtNombre" id="txtNombre" value="<?php echo isset($producto['nombre']) ? $producto['nombre'] : ''; ?>">
           </div>
 
           <div class="form-group col-6">
             <label for="nombre">Tipo de producto</label>
             <select class="form-control" name="txtTipoProducto" id="txtTipoProducto">
-              <option disabled selected>Seleccionar:</option>
+              <option disabled <?php isset($producto['fk_idtipoproducto']) ? '' : 'selected' ; ?>>Seleccionar:</option>
               <?php if($tiposProductos->num_rows > 0): ?>
                 <?php foreach($tiposProductos as $tipoProducto): ?>
-                  <option value="<?php echo $tipoProducto["idtipoproducto"];?>"><?php echo $tipoProducto["nombre"]; ?></option>
+                  <option value="<?php echo $tipoProducto["idtipoproducto"];?>" <?php isset($producto['fk_idtipoproducto']) ? 'selected' : '' ; ?> ><?php echo $tipoProducto["nombre"]; ?></option>
                   <?php endforeach; ?>
                   <?php endif; ?>
             </select>
@@ -70,12 +68,12 @@ var_dump($producto);
         <div class="row">
           <div class="form-group col-6">
             <label for="cantidad">Cantidad</label>
-            <input type="number" class="form-control" name="txtCantidad" id="txtCantidad">
+            <input type="number" class="form-control" name="txtCantidad" id="txtCantidad" value="<?php echo isset($producto['cantidad']) ? $producto['cantidad'] : ''; ?>">
           </div>
 
           <div class="form-group col-6">
             <label for="Precio">Precio</label>
-            <input type="number" class="form-control" name="txtPrecio" id="txtPrecio">
+            <input type="number" class="form-control" name="txtPrecio" id="txtPrecio" value="<?php echo isset($producto['precio']) ? $producto['precio'] : ''; ?>">
           </div>
         </div>
 
@@ -83,7 +81,7 @@ var_dump($producto);
         <div class="row">
           <div class="form-group col-12">
             <label for="Correo">Descripción:</label>
-            <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" cols="30" rows="10"></textarea>
+            <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" cols="30" rows="10"><?php echo isset($producto['descripcion']) ? $producto['descripcion'] : ''; ?></textarea>
           </div>
         </div>
 
