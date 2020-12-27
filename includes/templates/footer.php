@@ -67,6 +67,10 @@
     <script src="js/productos.js"></script>
   <?php endif;?>
 
+  <?php if(obtenerPaginaActual() == "listado-ventas" || obtenerPaginaActual() == "nueva-venta"): ?>
+    <script src="js/ventas.js"></script>
+  <?php endif;?>
+
 </body>
 
 </html>

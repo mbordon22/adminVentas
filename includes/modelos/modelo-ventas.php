@@ -1,14 +1,11 @@
-<?php
-
-//Guardamos todos los datos enviados de js
+<?php 
 $accion = $_REQUEST["accion"];
-$nombre = (isset($_REQUEST["nombre"])) ? $_REQUEST["nombre"] : "" ;
-$cuit = (isset($_REQUEST["cuit"])) ? $_REQUEST["cuit"] : "" ;
-$fecha_nac = (isset($_REQUEST["fechaNac"])) ? $_REQUEST["fechaNac"] : "" ;
-$telefono = (isset($_REQUEST["telefono"])) ? $_REQUEST["telefono"] : "" ;
-$correo = (isset($_REQUEST["correo"])) ? $_REQUEST["correo"] : "" ;
-$edad = (isset($_REQUEST["edad"])) ? (int) $_REQUEST["edad"] : "" ;
-$domicilio = (isset($_REQUEST["domicilio"])) ? $_REQUEST["domicilio"] : "" ;
+$fecha = (isset($_REQUEST["fecha"])) ? $_REQUEST["fecha"] : "" ;
+$hora = (isset($_REQUEST["hora"])) ? $_REQUEST["hora"] : "" ;
+$cliente = (isset($_REQUEST["cliente"])) ? $_REQUEST["cliente"] : "" ;
+$producto = (isset($_REQUEST["producto"])) ? $_REQUEST["producto"] : "" ;
+$total = (isset($_REQUEST["total"])) ? $_REQUEST["total"] : "" ;
+$cantidad = (isset($_REQUEST["cantidad"])) ? (int) $_REQUEST["cantidad"] : "" ;
 $id = (isset($_REQUEST["id"])) ? (int) $_REQUEST["id"] : "" ;
 
 
@@ -18,8 +15,8 @@ if($accion == "crear"){
 
     try{
         //Insertamos los datos en la bd
-        $stmt = $conn->prepare(" INSERT INTO clientes (nombre, cuit, telefono, correo, edad, fecha_nac, domicilio) VALUE (?, ?, ?, ?, ?, ?, ?) ");
-        $stmt->bind_param("ssssiss", $nombre, $cuit, $telefono, $correo, $edad, $fecha_nac, $domicilio);
+        $stmt = $conn->prepare(" INSERT INTO ventas (fecha, hora, cantidad, fk_idproducto, fk_idcliente, total) VALUE (?, ?, ?, ?, ?, ?) ");
+        $stmt->bind_param("ssiiii", $fecha, $hora, $cantidad, $producto, $cliente, $total);
 
         //Ejecutamos la accion
         $stmt->execute();
@@ -28,7 +25,8 @@ if($accion == "crear"){
         if($stmt->affected_rows > 0){
             $respuesta = array(
                 "respuesta" => "correcto",
-                "id" => $stmt->insert_id
+                "id" => $stmt->insert_id,
+                "hora" => $hora
             );
         }
 
@@ -48,14 +46,13 @@ if($accion == "crear"){
     echo json_encode($respuesta);
 
 }elseif($accion == "actualizar"){
-
     //Iniciamos la conexion a la bd
     include("../funciones/conexion.php");
 
     try{
-        //Insertamos los datos en la bd
-        $stmt = $conn->prepare(" UPDATE clientes SET nombre = ?, cuit = ?, telefono = ?, correo = ?, edad = ?, fecha_nac = ?, domicilio = ? WHERE idcliente = ? ");
-        $stmt->bind_param("ssssissi", $nombre, $cuit, $telefono, $correo, $edad, $fecha_nac, $domicilio, $id);
+        //Insertamos los nuevos datos en la bd
+        $stmt = $conn->prepare(" UPDATE ventas SET fecha = ?, hora = ?, cantidad = ?, fk_idproducto = ?, fk_idcliente = ?, total = ?  WHERE idventas = ? ");
+        $stmt->bind_param("ssiiiii", $fecha, $hora, $cantidad, $producto, $cliente, $total, $id);
 
         //Ejecutamos la accion
         $stmt->execute();
@@ -63,8 +60,7 @@ if($accion == "crear"){
         //Devolvemos a Javascript la respuesta
         if($stmt->affected_rows > 0){
             $respuesta = array(
-                "respuesta" => "actualizado",
-                "id" => $stmt->insert_id
+                "respuesta" => "correcto"
             );
         }
 
@@ -74,12 +70,13 @@ if($accion == "crear"){
 
 
     }catch(Exception $e){
+        //Mostramos el error, en caso que haya alguno
         $respuesta = array(
             "error" => $e->getMessage()
         );
     }
 
-    //DEVOLVEMOS LOS DATOS A JAVASCRIPT
+    //Devolvemos los datos a javascript
     echo json_encode($respuesta);
 
 }elseif($accion == "borrar") {
@@ -88,7 +85,7 @@ if($accion == "crear"){
 
     try{
         //Realizamos la accion en la base de datos
-        $stmt = $conn->prepare(" DELETE FROM clientes WHERE idcliente = ? ");
+        $stmt = $conn->prepare(" DELETE FROM ventas WHERE idventas = ? ");
         $stmt->bind_param("i", $id);
         
         //ejecutamos la accion
@@ -120,3 +117,5 @@ if($accion == "crear"){
     
 
 }
+
+?>

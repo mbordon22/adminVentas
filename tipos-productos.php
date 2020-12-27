@@ -25,9 +25,10 @@ $tipos_productos = obtenerTiposProductos();
 
         <!-- Page Heading -->
         <h1 class="h3 mb-1 text-gray-800">Listado de tipos de Productos</h1>
+        <div class="alert " role="alert" id="notificacion"></div>
 
         <div class="row">
-          <div class="col-10 col-sm-4 my-3">
+          <div class="col-10 col-sm-4 mb-3">
             <a href="nuevo-tipo-producto.php" class="btn btn-primary">Nuevo</a>
           </div>
         </div>

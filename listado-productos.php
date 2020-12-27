@@ -25,9 +25,10 @@ $productos = obtenerProductos();
 
         <!-- Page Heading -->
         <h1 class="h3 mb-1 text-gray-800">Listado de Productos</h1>
+        <div class="alert " role="alert" id="notificacion"></div>
 
         <div class="row">
-          <div class="col-10 col-sm-4 my-3">
+          <div class="col-10 col-sm-4 mb-3">
             <a href="nuevo-producto.php" class="btn btn-primary">Nuevo</a>
           </div>
         </div>
@@ -46,8 +47,8 @@ $productos = obtenerProductos();
                 <?php if($productos->num_rows > 0): ?>
                   <?php foreach($productos as $producto): ?>
                     <tr>
-                      <td><?php echo $producto["nombre"] ?></td>
-                      <td><?php echo $producto["cantidad"] ?></td>
+                      <td><?php echo $producto["nombre_producto"] ?></td>
+                      <td><?php echo $producto["cantidad_productos"] ?></td>
                       <td><?php echo "$" . str_replace(".", ",", $producto["precio"]) ?></td>
                       <td class="px-3 d-flex justify-content-start align-items-center">
                           <a href="nuevo-producto.php?id=<?php echo $producto['idproducto'] ?>">

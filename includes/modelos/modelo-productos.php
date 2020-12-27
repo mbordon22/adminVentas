@@ -108,7 +108,7 @@ elseif($accion == "crearP"){
 
     try{
 
-        $stmt = $conn->prepare(" INSERT INTO productos (nombre, cantidad, precio, descripcion, fk_idtipoprod) VALUE (?, ?, ?, ?, ?) ");
+        $stmt = $conn->prepare(" INSERT INTO productos (nombre_producto, cantidad_productos, precio, descripcion, fk_idtipoprod) VALUE (?, ?, ?, ?, ?) ");
         $stmt->bind_param("sidsi", $nombreProducto, $cantidad, $precio, $descripcion, $tipoProducto);
         $stmt->execute();
 
@@ -135,7 +135,7 @@ elseif($accion == "actualizarP"){
 
     try{
 
-        $stmt = $conn->prepare(" UPDATE `productos` SET `nombre` = ?, `fk_idtipoprod` = ?, `cantidad` = ?, `descripcion` = ?, `precio` = ? WHERE `productos`.`idproducto` = ? ");
+        $stmt = $conn->prepare(" UPDATE `productos` SET `nombre_producto` = ?, `fk_idtipoprod` = ?, `cantidad_productos` = ?, `descripcion` = ?, `precio` = ? WHERE `productos`.`idproducto` = ? ");
         $stmt->bind_param("siisii", $nombreProducto, $tipoProducto, $cantidad, $descripcion, $precio, $idProducto);
         $stmt->execute();
 

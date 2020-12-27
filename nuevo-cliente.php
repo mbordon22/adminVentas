@@ -35,9 +35,10 @@ if($idcliente > 0){
 
             <!-- Page Heading -->
             <h1 class="h3 mb-1 text-gray-800"><?php echo isset($_GET['id']) ? 'Editar Cliente' :'Nuevo Cliente';?></h1>
+            <div class="alert " role="alert" id="notificacion"></div>
 
             <!--Botones-->
-            <div class="row my-4">
+            <div class="row mb-4">
               <div class="col-12 col-sm-8">
                 <form action="" method="POST">
                   <a href="listado-clientes.php" class="btn btn-primary mr-1">Listado</a>
