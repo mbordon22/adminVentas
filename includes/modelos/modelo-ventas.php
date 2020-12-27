@@ -3,7 +3,7 @@ $accion = $_REQUEST["accion"];
 $fecha = (isset($_REQUEST["fecha"])) ? $_REQUEST["fecha"] : "" ;
 $hora = (isset($_REQUEST["hora"])) ? $_REQUEST["hora"] : "" ;
 $cliente = (isset($_REQUEST["cliente"])) ? $_REQUEST["cliente"] : "" ;
-$producto = (isset($_REQUEST["producto"])) ? $_REQUEST["producto"] : "" ;
+$producto = (isset($_REQUEST["producto"])) ? (int) $_REQUEST["producto"] : "" ;
 $total = (isset($_REQUEST["total"])) ? $_REQUEST["total"] : "" ;
 $cantidad = (isset($_REQUEST["cantidad"])) ? (int) $_REQUEST["cantidad"] : "" ;
 $id = (isset($_REQUEST["id"])) ? (int) $_REQUEST["id"] : "" ;
@@ -45,6 +45,29 @@ if($accion == "crear"){
     //Devolvemos los datos a javascript
     echo json_encode($respuesta);
 
+    //Actualizar Stock;
+
+    include("../funciones/conexion.php");
+
+    try{
+        $consulta = $conn->query(" SELECT cantidad_productos FROM productos WHERE idproducto = {$producto} ");
+        $array = $consulta->fetch_assoc();
+        $cantidad_productos = $array["cantidad_productos"];
+
+        $cantidad_restante = $cantidad_productos - $cantidad;
+
+        $stmt = $conn->prepare(" UPDATE productos SET cantidad_productos = ? WHERE idproducto = ? ");
+        $stmt->bind_param("ii", $cantidad_restante, $producto);
+        $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+    }catch(Exception $e){
+        //Mostramos el error, en caso que haya alguno
+        echo "error" . $e->getMessage();
+    }
+
 }elseif($accion == "actualizar"){
     //Iniciamos la conexion a la bd
     include("../funciones/conexion.php");
@@ -78,6 +101,29 @@ if($accion == "crear"){
 
     //Devolvemos los datos a javascript
     echo json_encode($respuesta);
+
+    //Actualizar Stock;
+
+    include("../funciones/conexion.php");
+
+    try{
+        $consulta = $conn->query(" SELECT cantidad_productos FROM productos WHERE idproducto = {$producto} ");
+        $array = $consulta->fetch_assoc();
+        $cantidad_productos = $array["cantidad_productos"];
+
+        $cantidad_restante = $cantidad_productos - $cantidad;
+
+        $stmt = $conn->prepare(" UPDATE productos SET cantidad_productos = ? WHERE idproducto = ? ");
+        $stmt->bind_param("ii", $cantidad_restante, $producto);
+        $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+    }catch(Exception $e){
+        //Mostramos el error, en caso que haya alguno
+        echo "error" . $e->getMessage();
+    }
 
 }elseif($accion == "borrar") {
  
