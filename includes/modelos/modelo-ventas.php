@@ -16,7 +16,7 @@ if($accion == "crear"){
     try{
         //Insertamos los datos en la bd
         $stmt = $conn->prepare(" INSERT INTO ventas (fecha, hora, cantidad, fk_idproducto, fk_idcliente, total) VALUE (?, ?, ?, ?, ?, ?) ");
-        $stmt->bind_param("ssiiii", $fecha, $hora, $cantidad, $producto, $cliente, $total);
+        $stmt->bind_param("ssiiid", $fecha, $hora, $cantidad, $producto, $cliente, $total);
 
         //Ejecutamos la accion
         $stmt->execute();
@@ -75,7 +75,7 @@ if($accion == "crear"){
     try{
         //Insertamos los nuevos datos en la bd
         $stmt = $conn->prepare(" UPDATE ventas SET fecha = ?, hora = ?, cantidad = ?, fk_idproducto = ?, fk_idcliente = ?, total = ?  WHERE idventas = ? ");
-        $stmt->bind_param("ssiiiii", $fecha, $hora, $cantidad, $producto, $cliente, $total, $id);
+        $stmt->bind_param("ssiiidi", $fecha, $hora, $cantidad, $producto, $cliente, $total, $id);
 
         //Ejecutamos la accion
         $stmt->execute();

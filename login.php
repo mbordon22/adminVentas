@@ -28,10 +28,10 @@
                 </div>
                 <form class="user">
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="txtUsuario" placeholder="Enter Email Address...">
+                    <input type="email" class="form-control form-control-user" id="txtUsuario" placeholder="Enter Email Address..." value="invitado">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="txtClave" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" id="txtClave" placeholder="Password" value="pass123">
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">

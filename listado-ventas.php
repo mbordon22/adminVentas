@@ -1,4 +1,5 @@
 <?php
+include_once("includes/funciones/sesiones.php");
 include("includes/funciones/funciones.php");
 include("includes/templates/header.php");
 
@@ -72,7 +73,7 @@ $ventas = obtenerVentas();
                         <td><?php echo $venta["nombre_producto"]; ?></td>
                         <td><?php echo $venta["cantidad"]; ?></td>
                         <td><?php echo $venta["nombre"]; ?></td>
-                        <td><?php echo "$" . $venta["total"]; ?></td>
+                        <td><?php echo "$" . number_format($venta["total"], 2, ",", "."); ?></td>
                         <td class="px-3 d-flex align-items-center">
                           <a href="nueva-venta.php?id=<?php echo $venta['idventas'] ?>">
                             <i class="fas fa-edit" id="editar"></i>

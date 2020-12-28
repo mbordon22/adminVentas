@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
                     var respuesta = JSON.parse(xhr.responseText);
                     
-
                     if(respuesta.respuesta === "correcto"){
                         window.location.href = "index.php";
                     }

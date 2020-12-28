@@ -1,5 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    //Retornar el option guardado cuando se quiere editar la venta
+    if (document.querySelector("#producto_seleccionado") && document.querySelector("#producto_seleccionado").value != ""){
+        var i = 0;
+        while(i < document.form_venta.lstProducto.length){
+
+            var valor_option =  document.form_venta.lstProducto.options[i].value,
+                valor_retornadoBD = document.querySelector("#producto_seleccionado").value;
+            
+            if(valor_option === valor_retornadoBD){
+                document.querySelector("#lstProducto").children[0].removeAttribute("selected");
+                document.querySelector("#lstProducto").children[i].setAttribute("selected", "");
+            }
+            
+            i++;
+        }
+    }
+
+    if (document.querySelector("#cliente_seleccionado") && document.querySelector("#cliente_seleccionado").value != ""){
+        var j = 0;
+        while(j < document.form_venta.lstCliente.length){
+
+            var valor_option =  document.form_venta.lstCliente.options[j].value,
+                valor_retornadoBD = document.querySelector("#cliente_seleccionado").value;
+            
+            if(valor_option === valor_retornadoBD){
+                
+                document.querySelector("#lstCliente").children[0].removeAttribute("selected");
+                document.querySelector("#lstCliente").children[j].setAttribute("selected", "");
+                
+            }
+            
+            j++;
+        }
+    }
+
+
+    //Ejecutamos todos los eventos
     eventListener();
 
     function eventListener() {
@@ -28,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (document.querySelector(".table tbody")) {
             document.querySelector(".table tbody").addEventListener("click", eliminarVenta);
         }
+
     }
 
 
@@ -44,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function calcularPrecioTotal() {
-        var precio = parseInt(document.querySelector("#txtPrecioU").value.replace("$", "")),
+        var precio = parseFloat(document.querySelector("#txtPrecioU").value.replace("$", "")),
             cantidad = document.querySelector("#txtCantidad").value,
             preciototal = precio * cantidad;
 
@@ -67,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cliente = document.querySelector("#lstCliente").value,
             producto = document.querySelector("#lstProducto").value,
             cantidad = document.querySelector("#txtCantidad").value,
-            total = parseInt(document.querySelector("#txtTotal").value.replace("$", ""));
+            total = parseFloat(document.querySelector("#txtTotal").value.replace("$", ""));
 
 
         if (fecha === "" || hora === "" || cliente === "" || producto === "" || cantidad === "") {
@@ -107,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
             xhr.onload = function () {
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
+                    
                     if (respuesta.respuesta === "correcto") {
 
                         var alerta = document.querySelector("#notificacion");
@@ -140,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cliente = document.querySelector("#lstCliente").value,
             producto = document.querySelector("#lstProducto").value,
             cantidad = document.querySelector("#txtCantidad").value,
-            total = parseInt(document.querySelector("#txtTotal").value.replace("$", "")),
+            total = parseFloat(document.querySelector("#txtTotal").value.replace("$", "")),
             id = document.querySelector("input#id-venta").value;
 
 
@@ -181,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             xhr.onload = function () {
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
+                    
                     if (respuesta.respuesta === "correcto") {
 
                         var alerta = document.querySelector("#notificacion");
@@ -235,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (this.status === 200) {
 
                         var resultado = JSON.parse(xhr.responseText);
-                        console.log(xhr.responseText);
+                        
 
                         if (resultado.respuesta == "correcto") {
 

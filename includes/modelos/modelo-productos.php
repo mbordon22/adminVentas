@@ -10,7 +10,7 @@ $idTipoProducto = isset($_REQUEST["id_tp"]) ? (int) $_REQUEST["id_tp"] : "";
 $nombreProducto = isset($_REQUEST["nombreProducto"]) ? $_REQUEST["nombreProducto"] : "";
 $tipoProducto = isset($_REQUEST["tipo_producto"]) ? (int) $_REQUEST["tipo_producto"] : "";
 $cantidad = isset($_REQUEST["cantidad"]) ? (int) $_REQUEST["cantidad"] : "";
-$precio = isset($_REQUEST["precio"]) ? (int) $_REQUEST["precio"] : "";
+$precio = isset($_REQUEST["precio"]) ? $_REQUEST["precio"] : "";
 $descripcion = isset($_REQUEST["descripcion"]) ? $_REQUEST["descripcion"] : "";
 $idProducto = isset($_REQUEST["id_producto"]) ? (int) $_REQUEST["id_producto"] : "";
 
@@ -136,7 +136,7 @@ elseif($accion == "actualizarP"){
     try{
 
         $stmt = $conn->prepare(" UPDATE `productos` SET `nombre_producto` = ?, `fk_idtipoprod` = ?, `cantidad_productos` = ?, `descripcion` = ?, `precio` = ? WHERE `productos`.`idproducto` = ? ");
-        $stmt->bind_param("siisii", $nombreProducto, $tipoProducto, $cantidad, $descripcion, $precio, $idProducto);
+        $stmt->bind_param("siisdi", $nombreProducto, $tipoProducto, $cantidad, $descripcion, $precio, $idProducto);
         $stmt->execute();
 
 

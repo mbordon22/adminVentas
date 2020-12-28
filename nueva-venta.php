@@ -1,4 +1,5 @@
 <?php
+include_once("includes/funciones/sesiones.php");
 include("includes/funciones/funciones.php");
 include("includes/templates/header.php");
 
@@ -12,8 +13,6 @@ $id = isset($_GET["id"]) ? $_GET["id"] : "";
 if ($id > 0) {
   $venta = obtenerVenta($id)->fetch_assoc();
 }
-
-
 
 ?>
 
@@ -54,7 +53,7 @@ if ($id > 0) {
         <!--Formulario-->
         <div class="row">
           <div class="col-12">
-            <form action="" method="POST" class="form">
+            <form action="" method="POST" class="form" name="form_venta">
               <div class="row">
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="fecha">Fecha:</label>
@@ -68,11 +67,12 @@ if ($id > 0) {
               <div class="row">
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="lstCliente">Cliente:</label>
+                  <input type="hidden" name="cliente_seleccionado" id="cliente_seleccionado" value="<?php echo isset($venta["idcliente"]) ? $venta["idcliente"] : "" ;?>">
                   <select name="lstCliente" id="lstCliente" class="form-control" required>
-                    <option value="0" disabled selected>Seleccionar</option>
+                    <option value="0" selected disabled>Seleccionar</option>
                     <?php if ($clientes->num_rows > 0) : ?>
                       <?php foreach ($clientes as $cliente) : ?>
-                        <option value="<?php echo $cliente["idcliente"]; ?>"><?php echo $cliente["nombre"]; ?></option>
+                        <option value="<?php echo $cliente["idcliente"];?>"><?php echo $cliente["nombre"]; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>
@@ -80,8 +80,9 @@ if ($id > 0) {
 
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="lstProducto">Producto:</label>
+                  <input type="hidden" name="producto_seleccionado" id="producto_seleccionado" value="<?php echo isset($venta["idproducto"]) ? $venta["idproducto"] : "" ;?>">
                   <select name="lstProducto" id="lstProducto" class="form-control" required>
-                    <option value="0" disabled selected>Seleccionar</option>
+                    <option value="0" selected disabled>Seleccionar</option>
                     <?php if ($productos->num_rows > 0) : ?>
                       <?php foreach ($productos as $producto) : ?>
                         <option id="<?php echo $producto['precio'] ?>" value="<?php echo $producto["idproducto"]; ?>" stock="<?php echo $producto["cantidad_productos"] ?>"><?php echo $producto["nombre_producto"]; ?></option>
@@ -93,7 +94,7 @@ if ($id > 0) {
               <div class="row">
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="precioU">Precio Unitario:</label>
-                  <input type="text" name="txtPrecioU" id="txtPrecioU" class="form-control" disabled value="">
+                  <input type="text" name="txtPrecioU" id="txtPrecioU" class="form-control" disabled value="<?php echo isset($venta['precio']) ? "$" . $venta['precio'] : "" ;?>">
                 </div>
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="cantidad">Cantidad:</label>
@@ -104,7 +105,7 @@ if ($id > 0) {
               <div class="row">
                 <div class="col-12 col-sm-6 p-2 form-group">
                   <label for="total">Total:</label>
-                  <input type="text" name="txtTotal" id="txtTotal" class="form-control" disabled value="">
+                  <input type="text" name="txtTotal" id="txtTotal" class="form-control" disabled value="<?php echo isset($venta['total']) ? "$" . $venta['total'] : "" ;?>">
                 </div>
               </div>
             </form>

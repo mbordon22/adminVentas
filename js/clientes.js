@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(respuesta);
                     if (respuesta.respuesta === "correcto") {
                         var respuesta = JSON.parse(xhr.responseText);
-                        console.log(respuesta);
+                        
                         if (respuesta.respuesta === "correcto") {
 
                             var alerta = document.querySelector("#notificacion");
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
             xhr.onload = function () {
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log(respuesta);
+                    
                     if (respuesta.respuesta === "actualizado") {
 
                         var alerta = document.querySelector("#notificacion");
@@ -194,7 +194,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (this.status === 200) {
 
                         var resultado = JSON.parse(xhr.responseText);
-                        console.log(xhr.responseText);
 
                         if (resultado.respuesta == "correcto") {
 

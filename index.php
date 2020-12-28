@@ -29,7 +29,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Inicio</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
         </div>
 
         <!-- Content Row -->
@@ -42,7 +42,7 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Facturación (Mensual)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo "$" . ventaMensual(12) ?></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo "$" . number_format(ventaMensual(12), 2, ",", ".") ?></div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -59,7 +59,7 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Facturación (Anual)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="gasto_anual"><?php echo "$" . ventaAnual(2020) ?></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="gasto_anual"><?php echo "$" . number_format(ventaAnual(2020), 2, ",", ".") ?></div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

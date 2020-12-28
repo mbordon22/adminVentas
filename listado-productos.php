@@ -1,4 +1,5 @@
 <?php
+include_once("includes/funciones/sesiones.php");
 include("includes/funciones/funciones.php");
 include("includes/templates/header.php");
 
@@ -49,7 +50,7 @@ $productos = obtenerProductos();
                     <tr>
                       <td><?php echo $producto["nombre_producto"] ?></td>
                       <td><?php echo $producto["cantidad_productos"] ?></td>
-                      <td><?php echo "$" . str_replace(".", ",", $producto["precio"]) ?></td>
+                      <td><?php echo "$" . number_format($producto["precio"], 2, ",", ".") ?></td>
                       <td class="px-3 d-flex justify-content-start align-items-center">
                           <a href="nuevo-producto.php?id=<?php echo $producto['idproducto'] ?>">
                             <i class="fas fa-edit" id="editar"></i>
