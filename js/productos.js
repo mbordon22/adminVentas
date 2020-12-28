@@ -1,5 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    //Retornar el option guardado cuando se quiere editar la venta
+    if (document.querySelector("#tipoproducto_seleccionado") && document.querySelector("#tipoproducto_seleccionado").value != ""){
+        var i = 0;
+        while(i < document.querySelector("#txtTipoProducto").length){
+
+            var valor_option =  document.querySelector("#txtTipoProducto").options[i].value,
+                valor_retornadoBD = document.querySelector("#tipoproducto_seleccionado").value;
+            
+            if(valor_option === valor_retornadoBD){
+                document.querySelector("#txtTipoProducto").children[0].removeAttribute("selected");
+                document.querySelector("#txtTipoProducto").children[i].setAttribute("selected", "");
+            }
+            
+            i++;
+        }
+    }
+
     eventListener();
 
     function eventListener() {

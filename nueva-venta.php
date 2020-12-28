@@ -87,7 +87,7 @@ if ($id > 0) {
                       <?php foreach ($productos as $producto) : ?>
                         <option id="<?php echo $producto['precio'] ?>" value="<?php echo $producto["idproducto"]; ?>" stock="<?php echo $producto["cantidad_productos"] ?>"><?php echo $producto["nombre_producto"]; ?></option>
                       <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php endif; ?> 
                   </select>
                 </div>
               </div>

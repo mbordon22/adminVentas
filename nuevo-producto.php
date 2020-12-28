@@ -55,11 +55,12 @@ if($id > 0){
 
           <div class="form-group col-6">
             <label for="nombre">Tipo de producto</label>
+            <input type="hidden" name="tipoproducto_seleccionado" id="tipoproducto_seleccionado" value="<?php echo isset($producto["fk_idtipoprod"]) ? $producto["fk_idtipoprod"] : "" ;?>">
             <select class="form-control" name="txtTipoProducto" id="txtTipoProducto">
-              <option disabled <?php isset($producto['fk_idtipoproducto']) ? '' : 'selected' ; ?>>Seleccionar:</option>
+              <option disabled value="0" selected>Seleccionar:</option>
               <?php if($tiposProductos->num_rows > 0): ?>
                 <?php foreach($tiposProductos as $tipoProducto): ?>
-                  <option value="<?php echo $tipoProducto["idtipoproducto"];?>" <?php isset($producto['fk_idtipoproducto']) ? 'selected' : '' ; ?> ><?php echo $tipoProducto["nombre"]; ?></option>
+                  <option value="<?php echo $tipoProducto["idtipoproducto"];?>"><?php echo $tipoProducto["nombre"]; ?></option>
                   <?php endforeach; ?>
                   <?php endif; ?>
             </select>
