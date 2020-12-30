@@ -13,7 +13,6 @@ header("Content-Disposition: attachment; filename=ventas.xls");
             <th>Cantidad</th>
             <th>Cliente</th>
             <th>Total</th>
-            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -38,15 +37,6 @@ header("Content-Disposition: attachment; filename=ventas.xls");
                     <td><?php echo $venta["cantidad"]; ?></td>
                     <td><?php echo $venta["nombre"]; ?></td>
                     <td><?php echo "$" . number_format($venta["total"], 2, ",", "."); ?></td>
-                    <td class="px-3 d-flex align-items-center">
-                        <a href="nueva-venta.php?id=<?php echo $venta['idventas'] ?>">
-                            <i class="fas fa-edit" id="editar"></i>
-                        </a>
-
-                        <button type="button" class="btn btn-borrar" data-id="<?php echo $venta["idventas"]; ?>">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

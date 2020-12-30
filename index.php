@@ -71,7 +71,7 @@
         </div>
 
         <!-- Content Row -->
-        <?php //include("includes/templates/graficos.php"); ?>
+        <?php include("includes/templates/graficos.php"); ?>
         
       </div>
       <!-- /.container-fluid -->
