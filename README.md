@@ -1,6 +1,6 @@
 # ADMINVENTAS
 
-##Administrador de Ventas  
+## Administrador de Ventas  
 
 + Manejo de Stock  
 + Carga  de Productos  
